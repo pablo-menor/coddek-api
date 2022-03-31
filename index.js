@@ -17,5 +17,4 @@ app.listen(PORT, () => console.log(`Server ready on port:  ${PORT}`));
 
 // Routes
 const routerApi = require('./routes/index');
-const { db } = require('./model/developer.model');
 routerApi(app);
