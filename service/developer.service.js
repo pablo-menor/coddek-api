@@ -5,7 +5,7 @@ class DeveloperService {
     constructor() { }
 
     async getById(id) {
-        return await this.developer.findById(id);
+        return await Developer.findById(id);
     }
 
     async getByUsername(username) {
