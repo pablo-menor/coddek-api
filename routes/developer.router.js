@@ -6,6 +6,7 @@ const service = new developerService();
 
 router.post('/signup', async (req, res) => {
     const developer = await service.signUp(req.body);
+    // console.log(developer);
     res.send(developer);
 });
 

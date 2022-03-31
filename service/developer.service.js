@@ -1,4 +1,5 @@
 const Developer = require('../model/developer.model');
+const bcrypt = require('bcrypt');
 
 class DeveloperService {
     constructor() { }
@@ -17,16 +18,26 @@ class DeveloperService {
 
     async signUp(developer) {
         try {
+            developer.password = await bcrypt.hash(developer.password, 6);
+
             const newDeveloper = new Developer(developer);
-            return await newDeveloper.save();
-        } catch (error) {
+            let savedDev = await newDeveloper.save();
+            return {
+                _id: savedDev._id,
+                username: savedDev.username,
+                email: savedDev.email,
+                avatar: savedDev.avatar,
+            }
+
+        }
+        catch (error) {
             return null
         }
     }
     async checkLogin(developer) {
         try {
             const dev = await this.getByEmail(developer.email);
-            if (dev && dev.password === developer.password) {
+            if (await bcrypt.compare(developer.password, dev.password)) {
                 return {
                     _id: dev._id,
                     username: dev.username,
@@ -39,7 +50,8 @@ class DeveloperService {
             return null;
         }
     }
-    async
+
+
     // async update(id, data) {
     //     return await this.developer.findByIdAndUpdate(id, data, { new: true });
     // }
