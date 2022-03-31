@@ -15,10 +15,31 @@ class DeveloperService {
         return await Developer.findOne({ email: devEmail });
     }
 
-    async addDeveloper(developer) {
-        const newDeveloper = new Developer(developer);
-        return await newDeveloper.save();
+    async signUp(developer) {
+        try {
+            const newDeveloper = new Developer(developer);
+            return await newDeveloper.save();
+        } catch (error) {
+            return null
+        }
     }
+    async checkLogin(developer) {
+        try {
+            const dev = await this.getByEmail(developer.email);
+            if (dev && dev.password === developer.password) {
+                return {
+                    _id: dev._id,
+                    username: dev.username,
+                    email: dev.email,
+                    avatar: dev.avatar,
+                }
+            }
+            return null;
+        } catch (error) {
+            return null;
+        }
+    }
+    async
     // async update(id, data) {
     //     return await this.developer.findByIdAndUpdate(id, data, { new: true });
     // }
