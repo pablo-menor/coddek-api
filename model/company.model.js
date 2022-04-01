@@ -25,7 +25,15 @@ const companySchema = new Schema({
         {
             offerId: String,
         }
-    ]
+    ],
+    created_at: {
+        type: Date,
+        default: Date.now,
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now,
+    },
 })
 
 
