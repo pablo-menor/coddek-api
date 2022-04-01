@@ -7,7 +7,6 @@ const service = new companyService();
 
 router.post('/signup', async (req, res) => {
     const company = await service.signUp(req.body);
-    console.log(company);
     res.send(company);
 });
 
