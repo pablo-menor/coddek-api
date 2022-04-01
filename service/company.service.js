@@ -19,10 +19,10 @@ class CompanyService {
     async signUp(company) {
         try {
             company.password = await bcrypt.hash(company.password, 6);
-            
+
             const newCompany = new Company(company);
-            let savedCompany = await newCompany.save(); //<-- ERROR
-            console.log(savedCompany);
+            let savedCompany = await newCompany.save();
+
             return {
                 _id: savedCompany._id,
                 name: savedCompany.name,
@@ -37,6 +37,7 @@ class CompanyService {
             const comp = await this.getByEmail(company.email);
             if (await bcrypt.compare(company.password, comp.password)) {
                 return {
+                    _id: comp._id,
                     name: comp.name,
                     email: comp.email,
                 }

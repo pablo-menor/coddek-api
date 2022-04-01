@@ -16,10 +16,10 @@ const companySchema = new Schema({
         type: String,
         required: true,
     },
-    profile: {
+    avatar: {
         type: String,
-        required: true,
-        unique: true,
+        default: 'default_avatar_company.jpg',
+        url: String,
     },
     offers_published: [
         {
