@@ -16,6 +16,7 @@ const companySchema = new Schema({
         type: String,
         required: true,
     },
+    website: String,
     avatar: {
         type: String,
         default: 'default_avatar_company.jpg',
