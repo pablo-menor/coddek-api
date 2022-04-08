@@ -51,7 +51,9 @@ class DeveloperService {
         }
     }
 
-
+    async getAll() {
+        return await Developer.find();
+    }
     // async update(id, data) {
     //     return await this.developer.findByIdAndUpdate(id, data, { new: true });
     // }
