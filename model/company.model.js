@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const companySchema = new Schema({
+    role: {
+        type: String,
+        default: 'company'
+    }
+    ,
     name: {
         type: String,
         required: true,

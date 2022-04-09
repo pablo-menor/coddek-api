@@ -18,6 +18,7 @@ router.post('/login', async (req, res) => {
             _id: developer._id,
             email: developer.email, 
             username: developer.username,
+            role: developer.role,
         }, process.env.JWT_SECRET);
         res.status(200).json({
             token,

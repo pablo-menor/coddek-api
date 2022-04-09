@@ -43,6 +43,7 @@ class DeveloperService {
                     username: dev.username,
                     email: dev.email,
                     avatar: dev.avatar,
+                    role: dev.role,
                 }
             }
             return null;

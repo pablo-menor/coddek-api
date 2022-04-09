@@ -40,6 +40,7 @@ class CompanyService {
                     _id: comp._id,
                     name: comp.name,
                     email: comp.email,
+                    role: comp.role,
                 }
             }
             return null;
