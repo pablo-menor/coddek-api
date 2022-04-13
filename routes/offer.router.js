@@ -27,4 +27,9 @@ router.get('/', verifyToken, async (req, res) => {
     res.send(offers);
 })
 
+router.get("/all", verifyToken, async(req, res) => {
+    const offers = await offerService.getAllCompanyOffers(req.user._id);
+    res.send(offers);
+
+})
 module.exports = router;
