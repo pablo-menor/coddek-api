@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
         }, process.env.JWT_SECRET);
         res.status(200).json({
             token,
-            company
+            user: company
         });
     } else {
         res.status(400).json({
