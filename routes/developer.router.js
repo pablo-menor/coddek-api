@@ -14,9 +14,9 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     const developer = await service.checkLogin(req.body);
     if (developer) {
-        const token = jwt.sign({ 
+        const token = jwt.sign({
             _id: developer._id,
-            email: developer.email, 
+            email: developer.email,
             username: developer.username,
             role: developer.role,
         }, process.env.JWT_SECRET);
@@ -31,7 +31,37 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/', verifyToken ,async (req, res) => {
+router.post('/save-offer', verifyToken, async (req, res) => {
+    const { offerId } = req.body;
+    const { _id } = req.user;
+    const isSaved = await service.saveOffer(_id, offerId);
+    if (isSaved) {
+        res.status(200).json({
+            message: 'Offer saved'
+        });
+    } else {
+        res.status(400).json({
+            message: 'Problem saving offer'
+        });
+    }
+});
+
+router.post('/delete-saved-offer', verifyToken, async (req, res) => {
+    const { offerId } = req.body;
+    const { _id } = req.user;
+    const isDeleted = await service.deleteOfferSaved(_id, offerId);
+    if (isDeleted) {
+        res.status(200).json({
+            message: 'Offer deleted'
+        });
+    } else {
+        res.status(400).json({
+            message: 'Problem deleting offer'
+        });
+    }
+});
+
+router.get('/', verifyToken, async (req, res) => {
     const developers = await service.getAll();
     res.send(developers);
 });

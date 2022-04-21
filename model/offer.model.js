@@ -10,6 +10,14 @@ const offerSchemma = new Schema({
         type: String,
         required: true,
     },
+    studiesRequired: {
+        type: String,
+        required: false,
+    },
+    experienceRequired: {
+        type: String,
+        required: false,
+    },
     company: {
         id: {
             type: String,
@@ -27,7 +35,12 @@ const offerSchemma = new Schema({
         required: true,
     },
     salary: {
-        type: Number,
+        amount: {
+            type: String,
+        },
+        currency: {
+            type: String,
+        },
         required: false,
     },
     tags: [

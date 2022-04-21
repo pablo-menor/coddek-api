@@ -55,13 +55,37 @@ class DeveloperService {
     async getAll() {
         return await Developer.find();
     }
-    // async update(id, data) {
-    //     return await this.developer.findByIdAndUpdate(id, data, { new: true });
-    // }
 
-    // async delete(id) {
-    //     return await this.developer.findByIdAndDelete(id);
-    // }
+    async saveOffer(devId, offerId) {
+        try {
+            const dev = await this.getById(devId);
+            dev.offers_saved.push({ offerId });
+            await dev.save();
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async getOffersSaved(devId) {
+        try {
+            const dev = await this.getById(devId);
+            return dev.offers_saved;
+        } catch (error) {
+            return [];
+        }
+    }
+
+    async deleteOfferSaved(devId, offerId) {
+        try {
+            const dev = await this.getById(devId);
+            dev.offers_saved = dev.offers_saved.filter(offer => offer.offerId !== offerId);
+            await dev.save();
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
 }
 
 module.exports = DeveloperService;
