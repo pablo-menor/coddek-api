@@ -9,7 +9,21 @@ class DeveloperService {
     }
 
     async getByUsername(username) {
-        return await Developer.findOne({ username });
+        try {
+            const developers =  await Developer.find({ 'username': {$regex: username,$options:'i'} });
+            let result = null;
+            if (developers){
+                developers.forEach(dev => {
+                    if (dev.username.toLowerCase() === username.toLowerCase()){
+                        result =  dev;
+                    }
+                });
+            }
+            return result;
+        }
+        catch (error) {
+            return null
+        }
     }
 
     async getByEmail(devEmail) {

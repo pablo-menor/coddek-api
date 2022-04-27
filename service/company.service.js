@@ -13,7 +13,21 @@ class CompanyService {
     }
 
     async getByName(name) {
-        return await Company.findOne({ name });
+        try {
+            const companies =  await Company.find({ 'name': {$regex: name,$options:'i'} });
+            let result = null;
+            if (companies){
+                companies.forEach(company => {
+                    if (company.name.toLowerCase() === name.toLowerCase()){
+                        result =  company;
+                    }
+                });
+            }
+            return result;
+        }
+        catch (error) {
+            return null
+        }
     }
 
     async signUp(company) {
@@ -38,7 +52,7 @@ class CompanyService {
             if (await bcrypt.compare(company.password, comp.password)) {
                 return {
                     _id: comp._id,
-                    name: comp.name,
+                    username: comp.name,
                     email: comp.email,
                     role: comp.role,
                 }
