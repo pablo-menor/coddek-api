@@ -9,13 +9,11 @@ const challengeSchema = new Schema({
 
     description: String,
 
-    offer: {
-        tags: [
-            {
-                name: String,
-            }
-        ],
-    },
+    tags: [
+        {
+            name: String,
+        }
+    ],
 
     archives: String
 });

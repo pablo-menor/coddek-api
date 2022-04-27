@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const developerModel = require('./developer.model');
 
 const Schema = mongoose.Schema;
 const companySchema = new Schema({
@@ -38,8 +39,9 @@ const companySchema = new Schema({
     },
     updated_at: {
         type: Date,
-        default: Date.now,
+        default: developerModel
     },
+
 })
 
 

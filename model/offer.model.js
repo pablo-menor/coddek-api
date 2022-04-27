@@ -59,6 +59,9 @@ const offerSchemma = new Schema({
     updated_at: {
         type: Date,
         default: Date.now
+    },
+    challangeId: {
+        type: String
     }
 }); 
 
