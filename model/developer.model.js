@@ -30,9 +30,22 @@ const devSchema = new Schema({
         type: String,
         required: false,
     },
+    about: {
+        type: String,
+        required: false,
+    },
     applied_offers: [
         {
             offerId: String,
+            show: {
+                type: Boolean,
+                default: true,
+            },
+            files: [
+                {
+                    name: String,
+                }
+            ]
         }
     ],
     offers_saved: [
@@ -47,7 +60,7 @@ const devSchema = new Schema({
     cv: [
         {
             title: String,
-            url: String,    
+            url: String,
         }
     ],
     created_at: {

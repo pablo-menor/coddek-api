@@ -60,7 +60,7 @@ const offerSchemma = new Schema({
         type: Date,
         default: Date.now
     },
-    challangeId: {
+    challengeId: {
         type: String
     }
 }); 

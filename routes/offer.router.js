@@ -22,11 +22,13 @@ router.post('/create', verifyToken, async (req, res) => {
     }
 })
 
+// All active offers
 router.get('/', verifyToken, async (req, res) => {
     const offers = await offerService.getAllActiveOffers();
     res.send(offers);
 })
 
+// All offers from one company
 router.get("/all", verifyToken, async(req, res) => {
     const offers = await offerService.getAllCompanyOffers(req.user._id);
     res.send(offers);

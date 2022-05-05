@@ -6,15 +6,12 @@ const challengeSchema = new Schema({
         type: String,
         required: true,
     },
-
     description: String,
-
     tags: [
         {
             name: String,
         }
     ],
-
     archives: String
 });
 

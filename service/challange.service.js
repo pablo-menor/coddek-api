@@ -8,8 +8,8 @@ class ChallangeService {
         return await Challange.findById(id);
     }
 
-    async getByTittle(tittle) {
-        return await Challange.find({ tittle: tittle });
+    async getByTittle(title) {
+        return await Challange.find({ title: title });
     }
 
 }

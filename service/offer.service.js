@@ -27,6 +27,15 @@ class OfferService {
       return null;
     }
   }
+
+  async getById(offerId) {
+    try {
+      let offer = await Offer.findById(offerId);
+      return offer;
+    } catch (error) {
+      return null;
+    }
+  }
 }
 
 module.exports = OfferService;
