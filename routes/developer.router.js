@@ -67,7 +67,21 @@ router.post('/delete-saved-offer', verifyToken, async (req, res) => {
 router.get('/saved-offers', verifyToken, async (req, res) => {
     const { _id } = req.user;
     const offers = await service.getOffersSaved(_id);
-    res.send(offers);
+    let result = [];
+    for (const offer of offers) {
+        const offerDetails = await offerService.getById(offer.offerId);
+        result.push({
+            _id: offerDetails._id,
+            title: offerDetails.title,
+            company: offerDetails.company,
+            company_logo: offerDetails.company.avatar,
+            tags: offerDetails.tags,
+            description: offerDetails.description,
+            location: offerDetails.location,
+            salary: offerDetails.salary,
+        });
+    }
+    res.send(result);
 });
 
 router.get('/', verifyToken, async (req, res) => {
