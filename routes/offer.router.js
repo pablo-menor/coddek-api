@@ -34,4 +34,10 @@ router.get("/all", verifyToken, async(req, res) => {
     res.send(offers);
 
 })
+
+//Find offers by input
+router.get('/search/:input', async (req, res)=>{
+    res.json( await offerService.findByInput(req.params.input)); 
+})
+
 module.exports = router;

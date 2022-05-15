@@ -39,7 +39,7 @@ const companySchema = new Schema({
     },
     updated_at: {
         type: Date,
-        default: developerModel
+        default: Date.now,
     },
 
 })

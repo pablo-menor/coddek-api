@@ -36,6 +36,17 @@ class OfferService {
       return null;
     }
   }
+
+  async findByInput(input){
+    const search = input.replace('+', ' ')
+    let result = [];
+    try {
+        result = await Offer.filter({ 'title': { $regex: search, $options: 'i' } })
+    } catch (error) {
+      result = [];
+    }
+   return result;
+}
 }
 
 module.exports = OfferService;
