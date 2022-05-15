@@ -41,7 +41,7 @@ class OfferService {
     const search = input.replace('+', ' ')
     let result = [];
     try {
-        result = await Offer.filter({ 'title': { $regex: search, $options: 'i' } })
+        result = await Offer.find({ 'title': { $regex: search, $options: 'i' } })
     } catch (error) {
       result = [];
     }
