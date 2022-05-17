@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/coddek')
 const cors = require('cors');
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+app.use(express.static('uploads'));
 
 app.listen(PORT, () => console.log(`Server ready on port:  ${PORT}`));
 

@@ -58,6 +58,7 @@ class DeveloperService {
                     email: dev.email,
                     avatar: dev.avatar,
                     role: dev.role,
+                    // avatar: dev.avatar,
                 }
             }
             return null;
@@ -116,6 +117,16 @@ class DeveloperService {
         } catch (error) {
             return false
         }
+    }
+
+    async getCVs(devId) {
+        try {
+            const dev = await this.getById(devId);
+            return dev.cvs;
+        } catch (error) {
+            return [];
+        }
+        
     }
 }
 

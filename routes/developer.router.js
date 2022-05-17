@@ -4,7 +4,16 @@ const developerService = require('../service/developer.service');
 const OfferService = require('../service/offer.service');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./verifyToken');
-const res = require('express/lib/response');
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename:  function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+const upload = multer({ storage: storage });
 
 const service = new developerService();
 const offerService = new OfferService();
@@ -22,6 +31,7 @@ router.post('/login', async (req, res) => {
             email: developer.email,
             username: developer.username,
             role: developer.role,
+            // avatar: avatar
         }, process.env.JWT_SECRET);
         res.status(200).json({
             token,
@@ -114,6 +124,23 @@ router.put('/update-dev', verifyToken, async (req, res) => {
     else {
         res.send(null)
     }
+})
+
+router.put('/update-avatar', verifyToken, upload.single('avatar'), async (req, res) => {
+    const {_id} = req.user
+    const isUpdated = await service.update(_id,{avatar: req.file.originalname})
+    if(isUpdated)
+        res.json({ message: 'User updated'})
+    else {
+        res.send(null)
+    }
+})
+
+router.get('/profile-pic', verifyToken, async (req, res) => {
+    const {_id} = req.user
+    const developer = await service.getById(_id)
+    const avatar = Buffer.from(developer.avatar, 'base64').toString('utf-8')
+    res.json({avatar})
 })
 
 module.exports = router;

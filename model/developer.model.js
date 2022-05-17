@@ -67,8 +67,8 @@ const devSchema = new Schema({
     },
     cv: [
         {
-            title: String,
-            url: String,
+            title: String, // Set by the user to identify the file
+            fileName: String, 
         }
     ],
     created_at: {
