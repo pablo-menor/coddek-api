@@ -122,11 +122,21 @@ class DeveloperService {
     async getCVs(devId) {
         try {
             const dev = await this.getById(devId);
-            return dev.cvs;
+            return dev.cv;
         } catch (error) {
             return [];
         }
-        
+    }
+
+    async deleteCV(devId, cvId) {
+        try {
+            const dev = await this.getById(devId);
+            dev.cv = dev.cv.filter(cv => !cv._id.equals(cvId));
+            await Developer.updateOne({ _id: devId }, dev);
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 }
 

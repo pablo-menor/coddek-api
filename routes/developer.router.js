@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads')
     },
-    filename:  function (req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, file.originalname)
     }
 })
@@ -117,30 +117,63 @@ router.get('/applied-offers/:userId', verifyToken, async (req, res) => {
 })
 
 router.put('/update-dev', verifyToken, async (req, res) => {
-    const {_id} = req.user
+    const { _id } = req.user
     const isUpdated = await service.update(_id, req.body)
-    if(isUpdated)
-        res.json({ message: 'User updated'})
+    if (isUpdated)
+        res.json({ message: 'User updated' })
     else {
         res.send(null)
     }
 })
 
 router.put('/update-avatar', verifyToken, upload.single('avatar'), async (req, res) => {
-    const {_id} = req.user
-    const isUpdated = await service.update(_id,{avatar: req.file.originalname})
-    if(isUpdated)
-        res.json({ message: 'User updated'})
+    const { _id } = req.user
+    const isUpdated = await service.update(_id, { avatar: req.file.originalname })
+    if (isUpdated)
+        res.json({ message: 'User updated' })
+    else {
+        res.send(null)
+    }
+})
+
+router.put('/upload-cv', verifyToken, upload.single('cv'), async (req, res) => {
+    const { _id } = req.user
+    const developer = await service.getById(_id)
+    console.log(req.body);
+    developer.cv.push({
+        title: req.body.title,
+        fileName: req.file.originalname,
+    })
+    const isUpdated = await service.update(_id, developer)
+    if (isUpdated)
+        res.json({ message: 'User updated' })
     else {
         res.send(null)
     }
 })
 
 router.get('/profile-pic', verifyToken, async (req, res) => {
-    const {_id} = req.user
+    const { _id } = req.user
     const developer = await service.getById(_id)
     const avatar = Buffer.from(developer.avatar, 'base64').toString('utf-8')
-    res.json({avatar})
+    res.json({ avatar })
+})
+
+router.get('/cvs', verifyToken, async (req, res) => {
+    const { _id } = req.user
+    const cvs = await service.getCVs(_id)
+    res.send(cvs)
+})
+
+router.delete('/delete-cv/:cvId', verifyToken, async (req, res) => {
+    const { _id } = req.user
+    const  cvId  = req.params.cvId
+    const isDeleted = await service.deleteCV(_id, cvId)
+    if (isDeleted)
+        res.json({ message: 'CV deleted' })
+    else {
+        res.send(null)
+    }
 })
 
 module.exports = router;
