@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const OfferService = require('../service/offer.service');
+const CompanyService  = require('../service/company.service');
 const verifyToken = require('./verifyToken');
 
 const offerService = new OfferService();
+const companyService = new CompanyService();
 
 router.post('/create', verifyToken, async (req, res) => {
+    const company = await companyService.getById(req.user._id);
     req.body.company = {
         id: req.user._id,
-        name: req.user.name,
+        name: company.name,
         // avatar: companyInfo.avatar,
     }
     const offer = await offerService.create(req.body);
