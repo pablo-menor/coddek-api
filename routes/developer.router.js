@@ -89,6 +89,8 @@ router.get('/saved-offers', verifyToken, async (req, res) => {
             description: offerDetails.description,
             location: offerDetails.location,
             salary: offerDetails.salary,
+            challengeId: offerDetails.challengeId,
+            experienceRequired: offerDetails.experienceRequired,
         });
     }
     res.send(result);
