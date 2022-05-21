@@ -62,7 +62,25 @@ const offerSchemma = new Schema({
     },
     challengeId: {
         type: String
-    }
+    },
+    devs: [
+        {
+            userId: {
+                type: String,
+            },
+            cv: {
+                type: String,
+            },
+            solution: {
+                type: String,
+            },
+            selected: {
+                type: Boolean,
+                default: false,
+            },
+        }
+    ],
+
 }); 
 
 module.exports = mongoose.model('Offer', offerSchemma);

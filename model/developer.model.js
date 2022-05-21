@@ -49,11 +49,9 @@ const devSchema = new Schema({
                 type: Boolean,
                 default: true,
             },
-            files: [
-                {
-                    name: String,
-                }
-            ]
+            files: String
+                
+            
         }
     ],
     offers_saved: [
