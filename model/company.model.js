@@ -13,6 +13,10 @@ const companySchema = new Schema({
         required: true,
         unique: true,
     },
+    about: {
+        type: String,
+        required: false,
+    },
     email: {
         type: String,
         required: true,

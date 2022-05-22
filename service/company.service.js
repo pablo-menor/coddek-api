@@ -62,6 +62,15 @@ class CompanyService {
             return null;
         }
     }
+
+    async update(companyId, data) {
+        try {
+            await Company.updateOne({ _id: companyId }, data)
+            return true
+        } catch (error) {
+            return false
+        }
+    }
 }
 
 module.exports = CompanyService;
