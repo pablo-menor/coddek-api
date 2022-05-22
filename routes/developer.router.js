@@ -178,4 +178,9 @@ router.delete('/delete-cv/:cvId', verifyToken, async (req, res) => {
     }
 })
 
+router.get('/:id', async (req, res) =>{
+    const developer = await service.getById(req.params.id);
+    res.send(developer);
+})
+
 module.exports = router;
