@@ -60,4 +60,11 @@ router.put('/update-avatar', verifyToken, upload.single('avatar'), async (req, r
     }
 })
 
+
+router.get("/:id", async (req, res) => {
+    const company = await service.getById(req.params.id);
+    res.send(company);
+}
+);
+
 module.exports = router;
