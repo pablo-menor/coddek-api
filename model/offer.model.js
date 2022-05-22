@@ -80,6 +80,10 @@ const offerSchemma = new Schema({
             },
         }
     ],
+    featured: {
+        type: Boolean,
+        default: false,
+    }
 
 }); 
 
